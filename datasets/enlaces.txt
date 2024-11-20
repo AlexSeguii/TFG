@@ -1,0 +1,5 @@
+
+https://developer.imdb.com/non-commercial-datasets/
+https://datasets.imdbws.com/
+
+https://www.kaggle.com/datasets/shivamb/netflix-shows
