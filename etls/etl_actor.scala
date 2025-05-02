@@ -1,32 +1,31 @@
 %spark
 
-//ETL ACTOR
+//ETL actor
 
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.expressions.Window
 
-// 0) Usar la base de datos Hive
+// 0) Usar la base de datos
 spark.sql("USE mydb")
 
-// 1) Leer el fichero name.basics.tsv
-val filePath = "file:///home/asa117/Descargas/zzz_ficheros_ETLS/name.basics.tsv"
+// 1) Leer name.basics.tsv
 val dfRaw = spark.read
-  .option("header", "true")
-  .option("delimiter", "\t")
-  .option("inferSchema", "true")
-  .csv(filePath)
+  .option("header","true")
+  .option("delimiter","\t")
+  .option("inferSchema","true")
+  .csv("file:///home/asa117/Descargas/zzz_ficheros_ETLS/name.basics.tsv")
 
-// 2) Filtrar solo “actor” o “actress”
+// 2) Filtrar solo actor/actress
 val dfActors = dfRaw.filter(
   array_contains(split(col("primaryProfession"), ","), "actor") ||
   array_contains(split(col("primaryProfession"), ","), "actress")
 )
 
 // 3) Calcular edad y grupo de edad
-val dfWithAge = dfActors.withColumn("age",
-    when(col("birthYear").isNull, lit(null).cast("int"))
-     .otherwise(lit(2025) - col("birthYear"))
-  ).withColumn("grupo_edad",
+val dfWithAge = dfActors
+  .withColumn("age", when(col("birthYear").isNull, lit(null).cast("int"))
+                     .otherwise(lit(2025) - col("birthYear")))
+  .withColumn("grupo_edad",
     when(col("age").isNull, "Desconocido")
      .when(col("age") <= 17, "Menor de edad")
      .when(col("age") <= 30, "Joven")
@@ -35,7 +34,7 @@ val dfWithAge = dfActors.withColumn("age",
   )
 
 // 4) Mapear reputación
-val dfWithReputation = dfWithAge.withColumn("reputacion",
+val dfWithRep = dfWithAge.withColumn("reputacion",
     when(col("Awards Count") === 0, "Desconocido")
      .when(col("Awards Count") === 1, "Poco conocido")
      .when(col("Awards Count").between(2,3), "Algo conocido")
@@ -44,8 +43,8 @@ val dfWithReputation = dfWithAge.withColumn("reputacion",
      .otherwise("Estrella consagrada")
   )
 
-// 5) Seleccionar y limpiar columnas, manteniendo nconst
-val dfClean = dfWithReputation.select(
+// 5) Seleccionar columnas clave (mantener nconst)
+val dfClean = dfWithRep.select(
     col("nconst"),
     col("primaryName").alias("nombre"),
     col("grupo_edad"),
@@ -56,19 +55,22 @@ val dfClean = dfWithReputation.select(
     col("Won Oscar").cast("boolean").alias("ganador_oscar")
   ).dropDuplicates("nconst")
 
-// 6) Generar temp ID por orden de nconst
+// 6) Generar surrogate key id_actor EN ORDEN DE nconst
 val windowSpec = Window.orderBy(col("nconst"))
 val dfRealActors = dfClean
-  .withColumn("id_actor", row_number().over(windowSpec) + 1)  // +1 para reservar el 1
-  .select("id_actor","nombre","grupo_edad","reputacion","ciudad","estado","pais","ganador_oscar")
+  .withColumn("id_actor", row_number().over(windowSpec) + 1)  // +1 para reservar ID=1
+  .select("id_actor","nconst","nombre","grupo_edad","reputacion","ciudad","estado","pais","ganador_oscar")
 
-// 7) Crear el registro “Sin actor” con unionByName (Spark infiere nulables)
+// 7) Crear el registro “Sin actor” (ID=1) y unir con unionByName
 val sinActorDF = Seq(
-  (1, "Sin actor", null, null, null, null, null, null)
-).toDF("id_actor","nombre","grupo_edad","reputacion","ciudad","estado","pais","ganador_oscar")
+  (1, "n/a", "Sin actor", null, null, null, null, null, null)
+).toDF("id_actor","nconst","nombre","grupo_edad","reputacion","ciudad","estado","pais","ganador_oscar")
 
-// 8) Unir y escribir
 val dfDimActor = sinActorDF.unionByName(dfRealActors)
-dfDimActor.show(20, false)
 
+// 8) Escribir en Hive
 dfDimActor.write.mode("overwrite").insertInto("actor")
+
+
+
+
