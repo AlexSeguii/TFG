@@ -1,3 +1,3 @@
 # TFG
 
-Proyecto TFG sobre analisis de contenido audiovisual
+Proyecto TFG sobre análisis de contenido audiovisual
