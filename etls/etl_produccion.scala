@@ -26,7 +26,7 @@ val translateClient: Translate = TranslateOptions.getDefaultInstance.getService
 
 // UDF que llama al API de Translate para pasar a inglés
 val translateUDF = udf { text: String =>
-  if (text == null || text.trim.isEmpty) "Unknown"
+  if (text == null || text.trim.isEmpty) "Desconocido"
   else {
     val translation: Translation =
       translateClient.translate(text,
