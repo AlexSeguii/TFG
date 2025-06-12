@@ -4,6 +4,48 @@
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.expressions.Window
 
+
+
+// UDF para normalizar cadenas: pasar a minúsculas y quitar acentos
+import java.text.Normalizer
+val normalizeUDF = udf { s: String =>
+  if (s == null) null
+  else {
+    Normalizer.normalize(s.toLowerCase, Normalizer.Form.NFD)
+      .replaceAll("\\p{M}", "")
+      .trim
+  }
+}
+
+// Cliente de Google Cloud Translate (modelo NMT)
+import com.google.cloud.translate.{Translate, TranslateOptions, Translation}
+val translateClient: Translate = TranslateOptions.getDefaultInstance.getService
+
+val translateUDF = udf { text: String =>
+  if (text == null || text.trim.isEmpty) "Unknown"
+  else {
+    val tr: Translation = translateClient.translate(
+      text,
+      Translate.TranslateOption.targetLanguage("en"),
+      Translate.TranslateOption.model("nmt")
+    )
+    tr.getTranslatedText
+  }
+}
+
+// UDF para convertir a mayuscula la primera letra de cada palabra
+val properCaseUDF = udf { s: String =>
+  if (s == null) null
+  else {
+    s.split("\\s+")
+     .map(w => w.head.toUpper + w.tail.toLowerCase)
+     .mkString(" ")
+     .trim
+  }
+}
+
+
+
 // Seleccionar la base de datos en Hive
 spark.sql("USE mydb")
 
