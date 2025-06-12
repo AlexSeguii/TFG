@@ -7,6 +7,47 @@
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.expressions.Window
 
+
+// --- 1) UDF para quitar diacríticos y pasar a lower-case
+val normalizeUDF = udf { s: String =>
+  if (s == null) null
+  else {
+    val noAccents = Normalizer
+      .normalize(s.toLowerCase, Normalizer.Form.NFD)
+      .replaceAll("\\p{M}", "")
+    noAccents.trim
+  }
+}
+
+// Cliente de Google Cloud Translate
+import com.google.cloud.translate.{Translate, TranslateOptions, Translation}
+
+val translateClient: Translate = TranslateOptions.getDefaultInstance.getService
+
+// UDF que llama al API de Translate para pasar a inglés
+val translateUDF = udf { text: String =>
+  if (text == null || text.trim.isEmpty) "Unknown"
+  else {
+    val translation: Translation =
+      translateClient.translate(text,
+                                Translate.TranslateOption.targetLanguage("en"),
+                                Translate.TranslateOption.model("nmt"))
+    translation.getTranslatedText
+  }
+}
+
+// UDF para capitalizar cada palabra ("spain" → "Spain", "united states" → "United States")
+val properCaseUDF = udf { s: String =>
+  if (s == null) null
+  else {
+    s.split("\\s+")
+     .map(w => w.head.toUpper + w.tail.toLowerCase)
+     .mkString(" ")
+     .trim
+  }
+}
+
+
 // Seleccionar la base de datos en Hive
 spark.sql("USE mydb")
 
