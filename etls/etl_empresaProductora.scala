@@ -9,6 +9,22 @@
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.expressions.Window
 
+
+// -----
+// Normalizar: quitar acentos, pasar a minúsculas y eliminar todo lo que no sea letra o número
+import java.text.Normalizer
+val normalizeUDF = udf { s: String =>
+  if (s == null) null
+  else {
+    // descomponer acentos, quitar marcas, pasar a lower y eliminar no-alfanuméricos
+    Normalizer.normalize(s.toLowerCase, Normalizer.Form.NFD)
+      .replaceAll("\\p{M}", "")
+      .replaceAll("[^a-z0-9]", "")
+      .trim
+  }
+}
+
+
 // Seleccionar la base de datos en Hive
 spark.sql("USE mydb")
 
@@ -31,6 +47,21 @@ val dfEmpresas = df.select(col("productionCompany"))
   ).otherwise(col("productionCompany")))
   .select("empresaProductora")
   .dropDuplicates()
+
+
+// Agrupar por la forma “normalizada” y quedarnos con la variante de menor longitud
+val dfNorm = dfEmpresas
+  .withColumn("norm", normalizeUDF(col("empresaProductora")))
+
+val windowNorm = Window
+  .partitionBy(col("norm"))
+  .orderBy(length(col("empresaProductora")).asc)
+
+val dfUnicas = dfNorm
+  .withColumn("rn", row_number().over(windowNorm))
+  .filter(col("rn") === 1)
+  .drop("norm", "rn")
+
 
 // Ordenar de forma especial: "Desconocido" siempre en primer lugar y luego el resto en orden alfabético
 val dfOrdenado = dfEmpresas.orderBy(
