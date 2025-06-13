@@ -1,6 +1,6 @@
 # Datasets
 
-A continuación, a partir del enlace podrás acceder al Drive con los datasets utilizados en el proyecto.
+Dado a las limitaciones de GitHub y el gran tamaño de los ficheros estos podrán ser accedidos a partir del siguiente enlace en Drive.
 
 [Acceder al Drive de datasets](https://drive.google.com/drive/folders/196GpKG1rH3CJ52-_V8KF4zKeLyZ5U2sW?dmr=1&ec=wgc-drive-hero-goto)
 
