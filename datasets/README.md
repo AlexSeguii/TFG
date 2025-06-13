@@ -1,3 +1,66 @@
-# TFG
+# Datasets
 
-Proyecto TFG sobre análisis de contenido audiovisual
+A continuación, a partir del enlace podrás acceder al Drive con los datasets utilizados en el proyecto.
+
+[Acceder al Drive de datasets](TU_ENLACE_A_DRIVE_AQUÍ)
+
+## Fuentes de datos
+
+### 1. IMDb – Non Commercial Datasets
+
+La página de IMDb Non Commercial Datasets ofrece descargas diarias de archivos TSV con información detallada de películas, series y profesionales del audiovisual.
+
+#### Archivos principales
+
+- **title.basics.tsv**: Información general de contenidos (películas, series, etc.).
+  - Filas: 1 171 070 (1974–2032).
+  - Actualización: diaria.
+
+| Campo          | Tipo    | Descripción                                     | Ejemplo         |
+| -------------- | ------- | ----------------------------------------------- | --------------- |
+| tconst         | String  | ID de contenido en IMDb                         | tt0332452       |
+| titleType      | String  | Tipo (Movie, TVSeries, etc.)                    | Movie           |
+| primaryTitle   | String  | Título más popular                              | Troy            |
+| originalTitle  | String  | Título original                                 | Troy            |
+| isAdult        | Boolean | Contenido para adultos (0=NO, 1=SÍ)             | 0               |
+| startYear      | Int     | Año de estreno                                  | 2004            |
+| endYear        | Int     | Año de finalización (NULL si sigue emitiéndose) | NULL            |
+| runtimeMinutes | Int     | Duración en minutos                             | 163             |
+| genres         | String  | Géneros (separados por comas)                   | Adventure,Drama |
+| languages      | String  | Idiomas (separados por comas)                   | English         |
+
+- **title.ratings.tsv**: Puntuaciones y número de votos.
+  - Filas: 1 454 241.
+  - Actualización: diaria.
+
+| Campo         | Tipo   | Descripción             | Ejemplo   |
+| ------------- | ------ | ----------------------- | --------- |
+| tconst        | String | ID de contenido en IMDb | tt0332452 |
+| averageRating | Float  | Puntuación media        | 7.3       |
+| numVotes      | Int    | Número de votos         | 574 440   |
+
+- **name.basics.tsv**: Datos de profesionales (actores, directores, etc.).
+  - Filas: 1 301 485.
+  - Actualización: diaria.
+
+| Campo             | Tipo   | Descripción                              | Ejemplo                                 |
+| ----------------- | ------ | ---------------------------------------- | --------------------------------------- |
+| nconst            | String | ID de la persona                         | nm0000093                               |
+| primaryName       | String | Nombre de la persona                     | Brad Pitt                               |
+| birthYear         | Int    | Año de nacimiento                        | 1963                                    |
+| deathYear         | Int    | Año de fallecimiento (\N si vivo)        | \N                                      |
+| primaryProfession | String | Profesiones (separadas por comas)        | producer,actor,executive                |
+| knownForTitles    | String | Títulos destacados (separados por comas) | tt0137523,tt0356910,tt1210166,tt0114746 |
+
+### 2. JustWatch (Web scraping)
+
+JustWatch es una guía gratuita de streaming. Se extrajo la disponibilidad diaria de contenidos en Netflix, Prime Video y Apple TV mediante scripts de web scraping.
+
+| Archivo     | Filas | Plataformas | Campos                                           | Descripción                                  |
+| ----------- | ----- | ----------- | ------------------------------------------------ | -------------------------------------------- |
+| netflix.csv | 1 924 | Netflix     | title\_spanish, tconst, actors, director, writer | Titulos disponibles en Netflix (en español). |
+| prime.csv   | 1 814 | Prime Video | title\_spanish, tconst, actors, director, writer | Titulos disponibles en Prime Video.          |
+| appletv.csv | 245   | Apple TV    | title\_spanish, tconst, actors, director, writer | Titulos disponibles en Apple TV.             |
+
+> **Nota:** Todos los archivos de JustWatch cubren contenidos de 1927 a 2025 y fueron descargados en mayo.
+
