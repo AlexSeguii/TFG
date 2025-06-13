@@ -8,7 +8,7 @@ A continuación, a partir del enlace podrás acceder al Drive con los datasets u
 
 ### 1. IMDb – Non Commercial Datasets
 
-La página de IMDb Non Commercial Datasets ofrece descargas diarias de archivos TSV con información detallada de películas, series y profesionales del audiovisual.
+La página de IMDb Non Commercial Datasets ofrece descargas diarias de archivos TSV con información detallada de películas, series y profesionales de la industria audiovisual.
 
 #### Archivos principales
 
