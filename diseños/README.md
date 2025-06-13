@@ -48,7 +48,7 @@ Este modelo sirve como base para generar el script del **Diseño Físico en HIVE
 
 ## 3. Diseño Físico (Hive)
 
-A partir del DDL generado por MySQL Workbench, se adaptó al dialecto de **Apache Hive** eliminando claves foráneas y ajustando tipos de datos:
+A partir del DDL generado por MySQL Workbench, se adaptó al dialecto de **Apache Hive** eliminando claves ajenas y ajustando tipos de datos:
 
 - `VARCHAR(n)` → `STRING`
 - `TINYINT` → `BOOLEAN`
