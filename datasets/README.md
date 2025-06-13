@@ -26,8 +26,8 @@ La página de IMDb Non Commercial Datasets ofrece descargas diarias de archivos 
 | startYear      | Int     | Año de estreno                                  | 2004            |
 | endYear        | Int     | Año de finalización (NULL si sigue emitiéndose) | NULL            |
 | runtimeMinutes | Int     | Duración en minutos                             | 163             |
-| genres         | String  | Géneros (separados por comas)                   | Adventure,Drama |
-| languages      | String  | Idiomas (separados por comas)                   | English         |
+| genres         | String  | Géneros                                         | Adventure,Drama |
+| languages      | String  | Idiomas                                         | English         |
 
 - **title.ratings.tsv**: Puntuaciones y número de votos.
   - Filas: 1 454 241.
@@ -49,8 +49,8 @@ La página de IMDb Non Commercial Datasets ofrece descargas diarias de archivos 
 | primaryName       | String | Nombre de la persona                     | Brad Pitt                               |
 | birthYear         | Int    | Año de nacimiento                        | 1963                                    |
 | deathYear         | Int    | Año de fallecimiento (\N si vivo)        | \N                                      |
-| primaryProfession | String | Profesiones (separadas por comas)        | producer,actor,executive                |
-| knownForTitles    | String | Títulos destacados (separados por comas) | tt0137523,tt0356910,tt1210166,tt0114746 |
+| primaryProfession | String | Profesiones                              | producer,actor,executive                |
+| knownForTitles    | String | Títulos destacados                       | tt0137523,tt0356910,tt1210166,tt0114746 |
 
 ### 2. JustWatch (Web scraping)
 
