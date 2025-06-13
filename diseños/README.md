@@ -12,6 +12,7 @@ El diseño conceptual define de forma abstracta las entidades y relaciones clave
 \
 **Figura 1. Diseño conceptual (esquema estrella) – Elaboración propia**
 
+![](https://github.com/AlexSeguii/TFG/raw/7a022779aa2551616a422e50edba7afae3692a18/dise%C3%B1os/dise%C3%B1o_conceptual.PNG)
 
 
 **Elementos principales:**
@@ -38,6 +39,7 @@ El diseño lógico traduce el modelo conceptual a un esquema de entidades y rela
 \
 **Figura 2. Diseño lógico – Elaboración propia**
 
+![](https://github.com/AlexSeguii/TFG/raw/7a022779aa2551616a422e50edba7afae3692a18/dise%C3%B1os/dise%C3%B1o_l%C3%B3gico.PNG)
 
 
 Este modelo sirve como base para generar el script del **Diseño Físico en HIVE**.
