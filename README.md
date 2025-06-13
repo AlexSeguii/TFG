@@ -1,6 +1,6 @@
 # Análisis de Métricas de Películas y Series mediante la construcción de un almacén de datos con tecnología Big Data
 
-En este proyecto se realizará un análisis de diversos aspectos relacionados con el contenido audiovisual y su evolución en el tiempo. Para ello:
+En este proyecto realizará un análisis de diversos aspectos relacionados con el contenido audiovisual y su evolución en el tiempo. Para ello:
 
 1. Se construirá un almacén de datos utilizando herramientas y tecnologías Big Data.
 2. Se integrará la información a partir de diferentes conjuntos de datos que contienen información relacionada con películas y series.
