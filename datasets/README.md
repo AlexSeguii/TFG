@@ -12,7 +12,7 @@ La página de IMDb Non Commercial Datasets ofrece descargas diarias de archivos 
 
 #### Archivos principales
 
-- **title.basics.tsv**: Información general de contenidos (películas, series, etc.).
+- **title.basics.tsv**: Información general de contenidos.
   - Filas: 1 171 070 (1974–2032).
   - Actualización: diaria.
 
