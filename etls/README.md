@@ -42,7 +42,7 @@ Cada script ETL se encarga de:
 
 ## Flujo general de un ETL
 
-1. **Lectura** del origen (TSV, CSV).
+1. **Lectura** del origen (TSV).
 2. **Preprocesado**: parseo de formatos, eliminación de nulos y duplicados.
 3. **Limpieza**: normalización de texto (minúsculas, acentos), traducción, regex.
 4. **Enriquecimiento**: webscraping para presupuesto, recaudación, metadatos personales.
