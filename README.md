@@ -14,3 +14,14 @@ En este proyecto realizará un análisis de diversos aspectos relacionados con e
 
 > _Este README describe la visión general del proyecto. Cada carpeta contiene su propio README con detalles específicos de su contenido._
 
+
+## ⚠️ Aviso de Derechos de Protección
+
+📁 Todos los ficheros presentes en este repositorio están protegidos por derechos de autor.
+
+🔒 **Queda estrictamente prohibido** el uso, copia, modificación o distribución parcial o total de este contenido **sin consentimiento previo del autor**.
+
+💡 Si deseas utilizar parte del código, por favor contacta conmigo para obtener los permisos correspondientes.
+
+© 2025 – Todos los derechos reservados.
+
