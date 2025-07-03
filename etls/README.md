@@ -17,7 +17,7 @@ Cada script ETL se encarga de:
 - **Apache Spark** (Scala)
 - **Apache Zeppelin** notebooks
 - Librerías de webscraping en **Python** (BeautifulSoup, Selenium) para enriquecer datos de IMDb y JustWatch.
-- **Hive**: destino de carga, sin claves foráneas y con tipos ajustados (`STRING`, `BOOLEAN`, etc.).
+- **Hive**: destino de carga, sin claves ajenas y con tipos ajustados (`STRING`, `BOOLEAN`, etc.).
 
 ---
 
