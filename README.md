@@ -7,6 +7,7 @@ En este proyecto realizará un análisis de diversos aspectos relacionados con e
 
 ## Estructura del Proyecto
 
+- **dashboard/**: Capturas de las diferentes páginas del dashboard.
 - **datasets/**: Enlace a los datasets y metadatos.
 - **diseños/**: Diseños del sistema (conceptual, lógico y físico).
 - **etls/**: Procesos ETL para la extracción, transformación y carga de datos.
